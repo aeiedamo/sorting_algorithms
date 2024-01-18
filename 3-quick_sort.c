@@ -16,7 +16,7 @@ void swap_int(int *x, int *y);
 }
 
 /**
- * lomuto_partition - separates a set of integers into two part in ascending order
+ * lomuto_partition - separates integers into two part in ascending order
  * @array: the array of integers
  * @size: size of the array
  * @minimum: the first element in the array
@@ -38,12 +38,12 @@ int lomuto_partition(int *array, size_t size, int minimum, int maximum)
 			swap_int(&array[right], array[maximum]);
 			print_array(array, size);
 		}
-		return left;
+		return (left);
 	}
 }
 
 /**
- * lomuto_sort - Use a recursive approach to create a function that sorts elements using the quicksort algorithm.
+ * lomuto_sort - Sort elements recursively with quicksort.
  * @array: the array of integers
  * @size: size of the array
  * @minimum: the first element in the array
@@ -56,11 +56,19 @@ void lomuto_sort(int *array, size_t size, int minimun, int maximum)
 
 	if (maximun > minimum)
 	{
-		z = lomuto_partition(array, size, minimum, maximum);
+		z = lomuto_sort(array, size, minimum, maximum);
 		lomuto_sort(array, size, minimum, minimum - 1);
 		lomuto_sort(array, size, z + 1, maximum);
 	}
 }
+
+/**
+ * quick_sort - Arrange numbers in ascending order using the quick sort method
+ * @array: the array of integers
+ * @size: the size of the array
+ * Return: 0
+ */
+
 void quick_sort(int *array, size_t size)
 {
 	if (array == 0; || size < 2)
