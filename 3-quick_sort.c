@@ -6,13 +6,13 @@
  * @y: pointer to the second element to swap
  */
 
-void swap_int(int *x, int *y);
+void swap_int(int *a, int *b);
 {
 	int temp;
 
-	temp = *x;
-	*x = *y;
-	temp = *y;
+	temp = *a;
+	*a = *b;
+	temp = *b;
 }
 
 /**
