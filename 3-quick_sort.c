@@ -32,7 +32,7 @@ int lomuto_partition(int *array, size_t size, int minimum, int maximum)
 		if (array[z] < pivot)
 		{
 			swap_int(&array[z], &array[maximum]);
-                        print_array(array, size);
+			print_array(array, size);
 		if (left != minimum)
 		{
 			swap_int(&array[left], &array[minimum]);
@@ -42,9 +42,11 @@ int lomuto_partition(int *array, size_t size, int minimum, int maximum)
 		}
 	}
 		if (pivot < array[minimum])
+		{
 			swap_int(&array[maximum], &array[minimum]);
-			priny_array(array, size);
-	}
+			print_array(array, size);
+		}
+		return (left);
 }
 
 /**
