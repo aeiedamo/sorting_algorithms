@@ -6,13 +6,13 @@
  * @b: pointer to the second element to swap
  */
 
-void swap_int(int *a, int *b);
+void swap_int(int *a, int *b)
 {
 	int temp;
 
 	temp = *a;
 	*a = *b;
-	temp = *b;
+	*b = temp;
 }
 
 /**
@@ -33,7 +33,7 @@ int lomuto_partition(int *array, size_t size, int minimum, int maximum)
 		{
 			if (left != minimum)
 			{
-				swap_int(&array[z], array[maximum]);
+				swap_int(&array[z], &array[maximum]);
 				print_array(array, size);
 			}
 			left++;
@@ -41,7 +41,7 @@ int lomuto_partition(int *array, size_t size, int minimum, int maximum)
 	}
 	if (array[minimum] != pivot)
 	{
-		swap_int(&array[minimum], array[maximum]);
+		swap_int(&array[minimum], &array[maximum]);
 		print_array(array, size);
 	}
 	return (left);
@@ -59,7 +59,7 @@ void lomuto_sort(int *array, size_t size, int minimum, int maximum)
 {
 	int z;
 
-	if (maximun > minimum)
+	if (maximum > minimum)
 	{
 		z = lomuto_partition(array, size, minimum, maximum);
 		lomuto_sort(array, size, minimum, minimum - 1);
@@ -76,7 +76,7 @@ void lomuto_sort(int *array, size_t size, int minimum, int maximum)
 
 void quick_sort(int *array, size_t size)
 {
-	if (array == 0; || size < 2)
+	if (array == 0 || size < 2)
 		return;
 	lomuto_sort(array, size, 0, size - 1);
 }
