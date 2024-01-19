@@ -2,8 +2,8 @@
 
 /**
  * swap_int - swaps two elements in array
- * @x: pointer to the first element to swap
- * @y: pointer to the second element to swap
+ * @a: pointer to the first element to swap
+ * @b: pointer to the second element to swap
  */
 
 void swap_int(int *a, int *b);
@@ -25,21 +25,26 @@ void swap_int(int *a, int *b);
  */
 int lomuto_partition(int *array, size_t size, int minimum, int maximum)
 {
-	int pivot = array[maximum], left = array[minimum], rihgt;
+	int pivot = array[maximum], left = array[minimum], z;
 
-	for (right = minimum; rihgt <= maximum - 1; right++)
+	for (z = 0; z <= maximum - 1; z++)
 	{
-		if (left != minimum)
+		if (array[z] < pivot)
 		{
-			swap_int(&array[left], &array[minimum]);
+			if (left != minimum)
+			{
+				swap_int(&array[z], array[maximum]);
+				print_array(array, size);
+			}
+			left++;
 		}
-		if (array[right] < pivot)
-		{
-			swap_int(&array[right], array[maximum]);
-			print_array(array, size);
-		}
-		return (left);
 	}
+	if (array[minimum] != pivot)
+	{
+		swap_int(&array[minimum], array[maximum]);
+		print_array(array, size);
+	}
+	return (left);
 }
 
 /**
@@ -47,16 +52,16 @@ int lomuto_partition(int *array, size_t size, int minimum, int maximum)
  * @array: the array of integers
  * @size: size of the array
  * @minimum: the first element in the array
- * @maximun: the last element in the array
+ * @maximum: the last element in the array
  * Return: 0
  */
-void lomuto_sort(int *array, size_t size, int minimun, int maximum)
+void lomuto_sort(int *array, size_t size, int minimum, int maximum)
 {
 	int z;
 
 	if (maximun > minimum)
 	{
-		z = lomuto_sort(array, size, minimum, maximum);
+		z = lomuto_partition(array, size, minimum, maximum);
 		lomuto_sort(array, size, minimum, minimum - 1);
 		lomuto_sort(array, size, z + 1, maximum);
 	}
@@ -75,4 +80,3 @@ void quick_sort(int *array, size_t size)
 		return;
 	lomuto_sort(array, size, 0, size - 1);
 }
-
