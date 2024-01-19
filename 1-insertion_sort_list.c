@@ -10,6 +10,10 @@ void insertion_sort_list(listint_t **list) {
   listint_t *first, *second, *third;
   int i, j;
   int len = listlen(*list);
+
+  if (len < 2)
+    return;
+
   if (!list || !(*list))
     return;
 
