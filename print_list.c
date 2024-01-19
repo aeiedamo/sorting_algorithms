@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 #include "sort.h"
+=======
+#include <stdio.h>
+#include "sort.h"
+
+>>>>>>> 25bd1ac13226c720f44da80c35ff01773a90cf63
 /**
  * print_list - Prints a list of integers
  *
  * @list: The list to be printed
  */
+<<<<<<< HEAD
 void print_list(const listint_t *list) {
   int i;
 
@@ -16,4 +23,20 @@ void print_list(const listint_t *list) {
     list = list->next;
   }
   printf("\n");
+=======
+void print_list(const listint_t *list)
+{
+    int i;
+
+    i = 0;
+    while (list)
+    {
+        if (i > 0)
+            printf(", ");
+        printf("%d", list->n);
+        ++i;
+        list = list->next;
+    }
+    printf("\n");
+>>>>>>> 25bd1ac13226c720f44da80c35ff01773a90cf63
 }
