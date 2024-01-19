@@ -8,77 +8,71 @@
 
 void swap_int(int *a, int *b)
 {
-        int tempNumber;
+	int tempNumber;
 
-        tempNumber = *a;
-        *a = *b;
-        *b = tempNumber;
+	tempNumber = *a;
+	*a = *b;
+	*b = tempNumber;
 }
 
 /**
- * lomuto_partition - separates integers into two part in ascending order
+ * hoare_partition - Organize numbers using the Hoare Partitioning method
  * @array: the array of integers
  * @size: size of the array
  * @minimum: the first element in the array
  * @maximum: the last element in the array
  * Return: the position of the updated index after the operation.
  */
-int lomuto_partition(int *array, size_t size, int minimum, int maximum)
+void hoare_partition(int *array, size_t size, int maximum, int minimum)
 {
-        int pivot = array[maximum], left = array[minimum], z;
+	int pivot = array[maximum], left = array[minimum], z;
 
-        for (z = minimum; z <= maximum - 1; z++)
-        {
-                if (array[z] < pivot)
-                {
-                        swap_int(&array[z], &array[maximum]);
-                        print_array(array, size);
-                if (left != minimum)
-                {
-                        swap_int(&array[left], &array[minimum]);
-                        print_array(array, size);
-                }
-                left++;
-                }
-        }
-                if (pivot < array[minimum])
-                {
-                        swap_int(&array[maximum], &array[minimum]);
-                        print_array(array, size);
-                }
-                return (left);
+	for (z = minimum; z <= maximum - 1; z++)
+	{
+		do {
+			maximum++;
+		} while (array[z] < pivot);
+		do {
+			left--;
+		} while (left != minimum);
+
+		if (pivot < array[minimum])
+		{
+			swap_int(&array[maximum], &array[minimum]);
+			print_array(array, size);
+		}
+	}
 }
 
 /**
- * lomuto_sort - Sort elements recursively with quicksort.
+ * hoare_sort - Sort elements recursively with quicksort.
  * @array: the array of integers
  * @size: size of the array
  * @minimum: the first element in the array
  * @maximum: the last element in the array
- * Return: 0
  */
-void lomuto_sort(int *array, size_t size, int minimum, int maximum)
+void hoare_sort(int *array, size_t size, int maximum, int minimum)
 {
-        int z;
+	int z;
 
-        if (maximum > minimum)
-        {
-                z = lomuto_partition(array, size, minimum, maximum);
-                lomuto_sort(array, size, minimum, minimum - 1);
-                lomuto_sort(array, size, z + 1, maximum);
-        }
+	if (maximum -  minimum > 0)
+	{
+		z = hoare_partition(array, size, minimum, maximum);
+		hoare_sort(array, size, minimum, z - 1);
+		hoare_sort(array, size, z, maximum);
+	}
 }
 
 /**
- * quick_sort - Arrange numbers in ascending order using the quick sort method
+ * quick_sort_hoare - Arrange numbers in ascending order using the quick sort
  * @array: the array of integers
  * @size: the size of the array
  * Return: 0
  */
 
-void quick_sort(int *array, size_t size)
+void quick_sort_hoare(int *array, size_t size)
 {
-        if (array == 0 || size < 2)
-                return;
-        lomuto_sort(array, size, 0, size - 1);
+	if (array == 0 || size < 2)
+		return;
+	hoare_sort(array, size, 0, size - 1);
 }
