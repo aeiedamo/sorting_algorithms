@@ -8,11 +8,11 @@
 
 void swap_int(int *a, int *b)
 {
-	int temp;
+	int tempNumber;
 
-	temp = *a;
+	tempNumber = *a;
 	*a = *b;
-	*b = temp;
+	*b = tempNumber;
 }
 
 /**
@@ -25,26 +25,22 @@ void swap_int(int *a, int *b)
  */
 int lomuto_partition(int *array, size_t size, int minimum, int maximum)
 {
-	int pivot = array[maximum], left = array[minimum], z;
+	int pivot = array[maximum], left = array[minimum],  rihgt;
 
-	for (z = 0; z <= maximum - 1; z++)
+	for (right = minimum; rihgt <= maximum - 1; right++)
 	{
-		if (array[z] < pivot)
+		if (left != minimum)
 		{
-			if (left != minimum)
-			{
-				swap_int(&array[z], &array[maximum]);
-				print_array(array, size);
-			}
-			left++;
+			swap_int(&array[left], &array[minimum]);
+			print_array(array, size);
 		}
+		if (array[right] < pivot)
+		{
+			swap_int(&array[right], &array[maximum]);
+			print_array(array, size);
+		}
+		return (left);
 	}
-	if (array[minimum] != pivot)
-	{
-		swap_int(&array[minimum], &array[maximum]);
-		print_array(array, size);
-	}
-	return (left);
 }
 
 /**
