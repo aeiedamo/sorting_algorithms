@@ -25,21 +25,25 @@ void swap_int(int *a, int *b)
  */
 int lomuto_partition(int *array, size_t size, int minimum, int maximum)
 {
-	int pivot = array[maximum], left = array[minimum],  rihgt;
+	int pivot = array[maximum], left = array[minimum], z;
 
-	for (right = minimum; rihgt <= maximum - 1; right++)
+	for (z = minimum; z <= maximum - 1; z++)
 	{
+		if (array[z] < pivot)
+		{
+			swap_int(&array[z], &array[maximum]);
+                        print_array(array, size);
 		if (left != minimum)
 		{
 			swap_int(&array[left], &array[minimum]);
 			print_array(array, size);
 		}
-		if (array[right] < pivot)
-		{
-			swap_int(&array[right], &array[maximum]);
-			print_array(array, size);
+		left++;
 		}
-		return (left);
+	}
+		if (pivot < array[minimum])
+			swap_int(&array[maximum], &array[minimum]);
+			priny_array(array, size);
 	}
 }
 
