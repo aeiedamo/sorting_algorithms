@@ -21,9 +21,9 @@ void swap_int(int *a, int *b)
  * @size: size of the array
  * @minimum: the first element in the array
  * @maximum: the last element in the array
- * Return: the position of the updated index after the operation.
+ * Return: The index after partitioning.
  */
-void hoare_partition(int *array, size_t size, int maximum, int minimum)
+int hoare_partition(int *array, size_t size, int maximum, int minimum)
 {
 	int pivot = array[maximum], left = array[minimum], z;
 
@@ -34,14 +34,16 @@ void hoare_partition(int *array, size_t size, int maximum, int minimum)
 		} while (array[z] < pivot);
 		do {
 			left--;
-		} while (left != minimum);
+		} while (pivot < array[minimum]);
 
-		if (pivot < array[minimum])
+		if (left != minimum)
 		{
 			swap_int(&array[maximum], &array[minimum]);
 			print_array(array, size);
 		}
 	}
+
+	return (z);
 }
 
 /**
@@ -53,13 +55,13 @@ void hoare_partition(int *array, size_t size, int maximum, int minimum)
  */
 void hoare_sort(int *array, size_t size, int maximum, int minimum)
 {
-	int z;
+	int half;
 
 	if (maximum -  minimum > 0)
 	{
-		z = hoare_partition(array, size, minimum, maximum);
-		hoare_sort(array, size, minimum, z - 1);
-		hoare_sort(array, size, z, maximum);
+		half = hoare_partition(array, size, minimum, maximum);
+		hoare_sort(array, size, minimum, half - 1);
+		hoare_sort(array, size, half, maximum);
 	}
 }
 
