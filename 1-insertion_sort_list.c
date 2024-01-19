@@ -7,14 +7,11 @@
  */
 
 void insertion_sort_list(listint_t **list) {
-  listint_t *first, *second, *third;
+  listint_t *first, *second;
   int i, j;
   int len = listlen(*list);
 
-  if (len < 2)
-    return;
-
-  if (!list || !(*list))
+  if (!list || !(*list) || len < 2)
     return;
 
   for (i = 1; i < len; i++) {
@@ -22,9 +19,8 @@ void insertion_sort_list(listint_t **list) {
     for (j = i - 1; j >= 0; j--) {
       second = find_node(list, j);
       if (second->n <= first->n)
-        break;
-      third = find_node(list, j + 1);
-      swap_nodes(third, second);
+        continue;
+      swap_nodes(second, second->next);
       reset_head(list);
       print_list(*list);
     }
