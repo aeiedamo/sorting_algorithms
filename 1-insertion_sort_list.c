@@ -1,6 +1,6 @@
 #include "needed.c"
 #include "sort.h"
-#include <stdio.h>
+
 /**
  * insertion_sort_list - function to sort a linked list with insertion sort
  * @list: double pointer to list
@@ -9,9 +9,11 @@
 void insertion_sort_list(listint_t **list) {
   listint_t *first, *second;
   int i, j;
-  int len = listlen(*list);
+  int len;
 
-  if (!list || !(*list) || len < 2)
+  if (!list || !(*list))
+    return;
+  if ((len = listlen(*list)) < 2)
     return;
 
   for (i = 1; i < len; i++) {
