@@ -1,84 +1,38 @@
+#include "needed.c"
 #include "sort.h"
 
-/**
- * swap_int - swaps two elements in array
- * @a: pointer to the first element to swap
- * @b: pointer to the second element to swap
- */
+size_t main_size, set = 0;
+int *main_array;
 
-void swap_int(int *a, int *b)
-{
-	int tempNumber;
+int quick_sort0(int *array, size_t start, size_t end) {
+  int *pivot = array + end;
+  size_t i, j;
 
-	tempNumber = *a;
-	*a = *b;
-	*b = tempNumber;
+  i = start;
+
+  for (j = start; j < end; j++) {
+    if (*(array + j) <= *pivot) {
+      swap((array + j), (array + i));
+      i++;
+    }
+  }
+  swap((array + i), pivot);
+  print_array(main_array, main_size);
+  return i;
 }
 
-/**
- * lomuto_partition - separates integers into two part in ascending order
- * @array: the array of integers
- * @size: size of the array
- * @minimum: the first element in the array
- * @maximum: the last element in the array
- * Return: the position of the updated index after the operation.
- */
-int lomuto_partition(int *array, size_t size, int minimum, int maximum)
-{
-	int pivot = array[maximum], left = array[minimum], z;
+void quick_sort(int *array, size_t size) {
+  int pivot_index;
 
-	for (z = minimum; z <= maximum - 1; z++)
-	{
-		if (array[z] < pivot)
-		{
-			swap_int(&array[z], &array[maximum]);
-			print_array(array, size);
-		if (left != minimum)
-		{
-			swap_int(&array[left], &array[minimum]);
-			print_array(array, size);
-		}
-		left++;
-		}
-	}
-		if (pivot < array[minimum])
-		{
-			swap_int(&array[maximum], &array[minimum]);
-			print_array(array, size);
-		}
-		return (left);
-}
+  if (!array || size < 2)
+    return;
 
-/**
- * lomuto_sort - Sort elements recursively with quicksort.
- * @array: the array of integers
- * @size: size of the array
- * @minimum: the first element in the array
- * @maximum: the last element in the array
- * Return: 0
- */
-void lomuto_sort(int *array, size_t size, int minimum, int maximum)
-{
-	int z;
-
-	if (maximum > minimum)
-	{
-		z = lomuto_partition(array, size, minimum, maximum);
-		lomuto_sort(array, size, minimum, minimum - 1);
-		lomuto_sort(array, size, z + 1, maximum);
-	}
-}
-
-/**
- * quick_sort - Arrange numbers in ascending order using the quick sort method
- * @array: the array of integers
- * @size: the size of the array
- * Return: 0
- */
-
-void quick_sort(int *array, size_t size)
-{
-	if (array == 0 || size < 2)
-		return;
-	lomuto_sort(array, size, 0, size - 1);
+  if (set == 0) {
+    main_size = size;
+    main_array = array;
+    set = 1;
+  }
+  pivot_index = quick_sort0(array, 0, size - 1);
+  quick_sort(array, pivot_index);
+  quick_sort(array + pivot_index + 1, size - pivot_index - 1);
 }
