@@ -37,7 +37,7 @@ void max_heapify(int *array, size_t size, size_t parent, size_t child)
 
 	if (maximum != parent)
 	{
-		swap_int(&array[maximum], &array[parent]);
+		swap_int(array + maximum, array + parent);
 		print_array(array, size);
 		max_heapify(array, size, parent, maximum);
 	}
