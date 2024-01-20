@@ -26,8 +26,8 @@ void max_heapify(int *array, size_t size, size_t parent, size_t child)
 {
 	size_t max_heap, mini_heap;
 
-	max_heap = array[parent];
-	mini_heap = array[child];
+	max_heap = 2 * child + 1;
+	mini_heap = 2 * child;
 
 	if (parent != max_heap)
 	{
