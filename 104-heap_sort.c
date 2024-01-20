@@ -52,18 +52,17 @@ void heap_sort(int *array, size_t size)
 {
 	size_t z;
 
-	if (array == 0 || size < 2)
+	if (array == NULL || size < 2)
 		return;
 
-	for (z = 0; z <= (size / 2) - 1; z++)
+	for (z = size / 2; z > 0; z--)
 	{
-
-	max_heapify(array, size, 0, size - 1);
+		max_heapify(array, size, size, z - 1);
 	}
 
-	for (z = 0; z < size - 1; z++)
+	for (z = size - 1; z > 0; z--)
 	{
-		swap_int(array + z, array + (size - 1));
+		swap_int(array, array + z);
 		print_array(array, size);
 		max_heapify(array, size, z, 0);
 	}
