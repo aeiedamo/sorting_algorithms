@@ -24,22 +24,22 @@ void swap_int(int *a, int *b)
  */
 void max_heapify(int *array, size_t size, size_t parent, size_t child)
 {
-	size_t max_heap, mini_heap;
+	size_t left_child, right_child, maximum;
 
-	max_heap = 2 * child + 1;
-	mini_heap = 2 * child;
+	left_child = 2 * child + 1;
+	right_child = 2 * child + 2;
+	maximum = parent;
 
-	if (parent != max_heap)
+	if (array[left_child] > array[maximum])
+		maximum = left_child;
+	if (array[right_child] > array[maximum])
+		maximum = right_child;
+
+	if (maximum != parent)
 	{
-		swap_int(&array[max_heap], &array[parent]);
+		swap_int(&array[maximum], &array[parent]);
 		print_array(array, size);
-		max_heapify(array, size, parent, max_heap);
-	}
-	if (child != mini_heap)
-	{
-		swap_int(&array[mini_heap], &array[child]);
-		print_array(array, size);
-		max_heapify(array, size, child, mini_heap);
+		max_heapify(array, size, parent, maximum);
 	}
 }
 
