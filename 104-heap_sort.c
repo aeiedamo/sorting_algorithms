@@ -30,11 +30,17 @@ void max_heapify(int *array, size_t size, size_t parent, size_t child)
 	right_child = 2 * child + 2;
 	maximum = parent;
 
-	if (left_child < parent && array[left_child] > array[maximum])
-		maximum = left_child;
+	while (left_child < parent)
+	{
+		if (array[left_child] > array[maximum])
+			swap_int(&array[left_child], &array[maximum]);
+	}
 
-	if (right_child < parent && array[right_child] > array[maximum])
-		maximum = right_child;
+	while (right_child < parent)
+	{
+		if (array[right_child] > array[maximum])
+			maximum = right_child;
+	}
 
 	if (maximum != parent)
 	{
@@ -56,7 +62,7 @@ void heap_sort(int *array, size_t size)
 	if (array == NULL || size < 2)
 		return;
 
-	for (z = (size / 2) - 1; z != size + 1; z--)
+	for (z = (size / 2) - 1; z != size; z--)
 	{
 		max_heapify(array, size, size, z);
 	}
