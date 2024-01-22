@@ -4,15 +4,18 @@
 size_t main_size;
 int *main_array;
 
+size_t ileftchild(size_t i) { return (2 * i + 1); }
+size_t irightchild(size_t i) { return (2 * i + 2); }
+size_t iparent(size_t i) { return ((i - 1) / 2); }
+
 void heapify(int *, size_t);
 void siftDown(int *, size_t, size_t);
 
 void heapify(int *array, size_t size) {
-  size_t start;
+  size_t start = iparent(size - 1) + 1;
 
-  start = (size - 1) / 2;
   while (start > 0) {
-    start = start - 1;
+    start--;
     siftDown(array, start, size);
   }
 }
@@ -20,18 +23,17 @@ void heapify(int *array, size_t size) {
 void siftDown(int *array, size_t root, size_t end) {
   size_t child;
 
-  while ((root * 2 + 1) <= end) {
-    child = (root * 2) + 1;
+  while (ileftchild(root) <= end) {
+    child = ileftchild(root);
 
-    if (child + 1 <= end && array[child] < array[child + 1])
-      child = child + 1;
+    if (child + 1 < end && array[child] < array[child + 1])
+      child++;
     if (array[root] < array[child]) {
       swap(&array[root], &array[child]);
       print_array(main_array, main_size);
       root = child;
-    } else {
+    } else
       return;
-    }
   }
 }
 
@@ -45,11 +47,10 @@ void heap_sort(int *array, size_t size) {
   main_array = array;
 
   heapify(array, size);
-  end = size - 1;
-  while (end > 0) {
-    swap(&array[end], &array[0]);
+  for (end = (size - 1); end > 0;) {
+    swap(&array[0], &array[end]);
     print_array(main_array, main_size);
-    end = end - 1;
+    --end;
     siftDown(array, 0, end);
   }
 }
