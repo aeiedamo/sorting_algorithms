@@ -38,6 +38,9 @@ void siftDown(int *array, size_t root, size_t end) {
 void heap_sort(int *array, size_t size) {
   size_t end;
 
+  if (!array || size < 2)
+    return;
+
   main_size = size;
   main_array = array;
 
