@@ -1,76 +1,52 @@
+#include "needed.c"
 #include "sort.h"
 
-/**
- * swap_int - swaps two elements in array
- * @a: pointer to the first element to swap
- * @b: pointer to the second element to swap
- */
+size_t main_size;
+int *main_array;
 
-void swap_int(int *a, int *b)
-{
-	int tempNumber;
+void heapify(int *, size_t);
+void siftDown(int *, size_t, size_t);
 
-	tempNumber = *a;
-	*a = *b;
-	*b = tempNumber;
+void heapify(int *array, size_t size) {
+  size_t start;
+
+  start = (size - 1) / 2;
+  while (start > 0) {
+    start = start - 1;
+    siftDown(array, start, size);
+  }
 }
 
-/**
- * max_heapify - Make a special kind of heap from a tree to  organized.
- * @array: the array of integers
- * @size: size of the array
- * @parent: the base row in the tree.
- * @child: the root row in the tree.
- */
-void max_heapify(int *array, size_t size, size_t parent, size_t child)
-{
-	size_t left_child, right_child, maximum;
+void siftDown(int *array, size_t root, size_t end) {
+  size_t child;
 
-	left_child = 2 * child + 1;
-	right_child = 2 * child + 2;
-	maximum = parent;
+  while ((root * 2 + 1) <= end) {
+    child = (root * 2) + 1;
 
-	while (left_child < parent)
-	{
-		if (array[left_child] > array[maximum])
-			swap_int(&array[left_child], &array[maximum]);
-	}
-
-	while (right_child < parent)
-	{
-		if (array[right_child] > array[maximum])
-			maximum = right_child;
-	}
-
-	if (maximum != parent)
-	{
-		swap_int(array + maximum, array + parent);
-		print_array(array, size);
-		max_heapify(array, size, parent, maximum);
-	}
+    if (child + 1 <= end && array[child] < array[child + 1])
+      child = child + 1;
+    if (array[root] < array[child]) {
+      swap(&array[root], &array[child]);
+      print_array(main_array, main_size);
+      root = child;
+    } else {
+      return;
+    }
+  }
 }
 
-/**
- * heap_sort - Arrange numbers in ascending order using the heap sort
- * @array: the array of integers
- * @size: size of the array
- */
-void heap_sort(int *array, size_t size)
-{
-	size_t z;
+void heap_sort(int *array, size_t size) {
+  size_t end;
 
-	if (array == NULL || size < 2)
-		return;
+  main_size = size;
+  main_array = array;
 
-	for (z = (size / 2) - 1; z != size; z--)
-	{
-		max_heapify(array, size, size, z);
-	}
-
-	for (z = size - 1; z > 0; z--)
-	{
-		swap_int(array, array + z);
-		print_array(array, size);
-		max_heapify(array, size, z, 0);
-	}
+  heapify(array, size);
+  end = size - 1;
+  while (end > 0) {
+    swap(&array[end], &array[0]);
+    print_array(main_array, main_size);
+    end = end - 1;
+    siftDown(array, 0, end);
+  }
 }

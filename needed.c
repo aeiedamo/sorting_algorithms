@@ -1,5 +1,4 @@
 #include "sort.h"
-#include <stdlib.h>
 
 /**
  * reset_head - function to reset head of a list
