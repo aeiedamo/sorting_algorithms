@@ -1,4 +1,4 @@
-#include "sort.h"
+#include "../sort.h"
 
 /**
  * reset_head - function to reset head of a list
