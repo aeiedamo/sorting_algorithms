@@ -1,4 +1,12 @@
 #include "needed.c"
+/**
+ * topDownMerge - function to merge the left and right of an array
+ * @arrayB: pointer to B array
+ * @start: start of arrays
+ * @mid: mid of arrays
+ * @end: end of arrays
+ * @array: pointer to array A
+ */
 
 void topDownMerge(int *arrayB, size_t start, size_t mid, size_t end,
                   int *array) {
@@ -13,10 +21,15 @@ void topDownMerge(int *arrayB, size_t start, size_t mid, size_t end,
       j++;
     }
   }
-
-  for (; i < mid; i++)
-    arrayB[k++] = array[i];
 }
+
+/**
+ * topDownSplitMerge - function to split an array into left and right
+ * @arrayB: pointer to array B
+ * @start: start of arrays
+ * @end: end of arrays
+ * @array: pointer to array A
+ */
 
 void topDownSplitMerge(int *arrayB, size_t start, size_t end, int *array) {
   size_t mid;
@@ -34,6 +47,13 @@ void topDownSplitMerge(int *arrayB, size_t start, size_t end, int *array) {
   printf("[Done]: ");
   print_array(arrayB + start, end - start);
 }
+
+/**
+ * copy_array - function to copy array A to B
+ * @array: pointer to array A
+ * @size: size of arrays
+ * @arrayB: pointer to array B
+ */
 
 void copy_array(int *array, size_t size, int *arrayB) {
   size_t i;
